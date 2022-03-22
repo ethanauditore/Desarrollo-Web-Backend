@@ -4,6 +4,8 @@ public class Region {
     private static int regionId;
     private String region;
 
+    public Region() {}
+
     public Region(String region) {
         this.region = region;
         regionId++;
@@ -22,8 +24,8 @@ public class Region {
     }
 
     @Override public String toString() {
-        return String.format("ID     : %d\n" +
-                             "Region : %s",
+        return String.format("RegionID: %d\n" +
+                             "Region: %s",
                              regionId, region);
     }
 }

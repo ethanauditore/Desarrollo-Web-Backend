@@ -8,6 +8,10 @@ public class Customer {
     private String mail;
     private Region region;
 
+    public Customer() {
+        region = new Region();
+    }
+
     public Customer(String name, String surname, String rfc, String mail, Region region) {
         this.name = name;
         this.surname = surname;
@@ -62,13 +66,15 @@ public class Customer {
     }
 
     @Override public String toString() {
-        return String.format("ID       : %s\n" +
-                             "Nombre   : %s\n" +
-                             "Apellido : %s\n" +
-                             "RFC      : %s\n" +
-                             "Email    : %s\n" +
-                             "Region   : %s\n" ,
+        String s = region.toString().split("\n")[0];
+        String regionId = s.substring(s.indexOf(" ") + 1);
+        return String.format("ClienteID: %s\n" +
+                             "Nombre: %s\n" +
+                             "Apellido: %s\n" +
+                             "RFC: %s\n" +
+                             "Email: %s\n" +
+                             "RegionID: %s" ,
                              customerID, name, surname,
-                             rfc, mail, region);
+                             rfc, mail, regionId);
     }
 }
