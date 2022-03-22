@@ -1,0 +1,22 @@
+Nombre: José Ethan Ortega González
+Número de Cuenta: 316088327
+Herramienta utilizada: exa
+
+.
+├── pom.xml
+├── README.md
+└── src
+   └── main
+      └── java
+         └── ciencias
+            └── unam
+               └── mx
+                  ├── controller
+                  │  └── Menu.java
+                  ├── entity
+                  │  ├── Customer.java
+                  │  └── Region.java
+                  ├── Practica1.java
+                  └── service
+                     ├── DBTablePrinter.java
+                     └── SQL.java
