@@ -1,12 +1,14 @@
-package com.product.api.entity;
+package com.practica6.api.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -49,20 +51,15 @@ public class Product {
 	@NotNull(message="stock is required")
 	@Min(value=1, message="status must be greater than 0")
 	private Integer stock;
-	
-	@JsonProperty("category_id")
-	@Column(name = "category_id")
-	@NotNull(message="category_id is required")
-	private Integer category_id;
-	
+
 	@JsonIgnore
 	@Column(name = "status")
 	@Min(value=0, message="status must be 0 or 1")
 	@Max(value=1, message="status must be 0 or 1")
 	private Integer status;
 	
-	@Transient 
-	@JsonProperty("category")
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "category_id", referencedColumnName = "category_id")
 	private Category category;
 
 	public Integer getProduct_id() {
@@ -111,14 +108,6 @@ public class Product {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
-	}
-
-	public Integer getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(Integer category_id) {
-		this.category_id = category_id;
 	}
 
 	public Integer getStatus() {

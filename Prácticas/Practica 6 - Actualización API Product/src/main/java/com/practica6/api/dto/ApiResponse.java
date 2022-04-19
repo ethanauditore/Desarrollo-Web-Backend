@@ -1,4 +1,4 @@
-package com.product.api.dto;
+package com.practica6.api.dto;
 
 public class ApiResponse {
 

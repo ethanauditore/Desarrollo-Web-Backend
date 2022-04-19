@@ -1,4 +1,4 @@
-package com.product.api.repository;
+package com.practica6.api.repository;
 
 import javax.transaction.Transactional;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.product.api.entity.Product;
+import com.practica6.api.entity.Product;
 
 @Repository
 public interface RepoProduct extends JpaRepository<Product, Integer>{
@@ -38,4 +38,9 @@ public interface RepoProduct extends JpaRepository<Product, Integer>{
 	@Transactional
 	@Query(value ="UPDATE product SET status = 0 WHERE product_id = :product_id AND status = 1", nativeQuery = true)
 	Integer deleteProduct(@Param("product_id") Integer product_id);
+
+	@Modifying
+	@Transactional
+	@Query(value ="UPDATE product SET category_id = :category_id WHERE product_id = :product_id AND status = 1", nativeQuery = true)
+	Integer updateProductCategory(@Param("category_id") Integer id_category, @Param("product_id") Integer id_product);
 }

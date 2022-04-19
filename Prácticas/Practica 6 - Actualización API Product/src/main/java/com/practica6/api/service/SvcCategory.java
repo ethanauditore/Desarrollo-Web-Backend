@@ -1,9 +1,9 @@
-package com.product.api.service;
+package com.practica6.api.service;
 
 import java.util.List;
 
-import com.product.api.dto.ApiResponse;
-import com.product.api.entity.Category;
+import com.practica6.api.dto.ApiResponse;
+import com.practica6.api.entity.Category;
 
 public interface SvcCategory {
 

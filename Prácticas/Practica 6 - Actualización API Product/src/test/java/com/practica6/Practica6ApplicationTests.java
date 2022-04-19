@@ -1,10 +1,10 @@
-package com.product;
+package com.practica6;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProductApplicationTests {
+class Practica6ApplicationTests {
 
 	@Test
 	void contextLoads() {

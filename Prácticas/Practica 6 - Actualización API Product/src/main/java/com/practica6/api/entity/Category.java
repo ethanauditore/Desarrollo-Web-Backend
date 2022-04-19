@@ -1,4 +1,4 @@
-package com.product.api.entity;
+package com.practica6.api.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ public class Category {
 	@Column(name = "category_id")
 	private Integer category_id;
 	
-	@JsonProperty("category")
+	// @JsonProperty("category")
 	@Column(name = "category")
 	@NotNull(message="category is required")
 	private String category;

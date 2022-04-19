@@ -1,32 +1,48 @@
-package com.product.api.service;
+package com.practica6.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.product.api.dto.ApiResponse;
-import com.product.api.entity.Product;
-import com.product.api.repository.RepoCategory;
-import com.product.api.repository.RepoProduct;
-import com.product.exception.ApiException;
+import java.util.List;
+
+import com.practica6.api.dto.ApiResponse;
+import com.practica6.api.dto.DtoProductList;
+import com.practica6.api.entity.Category;
+import com.practica6.api.entity.Product;
+import com.practica6.api.repository.RepoCategory;
+import com.practica6.api.repository.RepoProduct;
+import com.practica6.api.repository.RepoProductList;
+import com.practica6.exception.ApiException;
 
 @Service
 public class SvcProductImp implements SvcProduct {
 
 	@Autowired
 	RepoProduct repo;
-	
+
+	@Autowired
+	RepoProductList repoProductList;
+
 	@Autowired
 	RepoCategory repoCategory;
 
 	@Override
-	public Product getProduct(String gtin) {
-		Product product = repo.findByGtinAndStatus(gtin,1);
-		if (product != null) {
-			product.setCategory(repoCategory.getCategory(product.getCategory_id()));
+	public List<DtoProductList> getProductById(Integer id) {
+		List<DtoProductList>  product = repoProductList.findByStatusAndId(1, id);
+		if (product == null)
+			throw new ApiException(HttpStatus.NOT_FOUND, "product does not exist");
+		else
 			return product;
-		}else
+	}
+
+	@Override
+	public Product getProduct(String gtin) {
+		Product product = repo.findByGtinAndStatus(gtin, 1);
+		if (product != null)
+			return product;
+		else
 			throw new ApiException(HttpStatus.NOT_FOUND, "product does not exist");
 	}
 
@@ -69,5 +85,18 @@ public class SvcProductImp implements SvcProduct {
 			return new ApiResponse("product removed");
 		else
 			throw new ApiException(HttpStatus.BAD_REQUEST, "product cannot be deleted");
+	}
+
+	@Override
+	public ApiResponse updateProductCategory(Category category, Integer id) {
+		try {
+			if (repo.updateProductCategory(category.getCategory_id(), id) > 0) {
+				return new ApiResponse("product category updated");
+			} else {
+				throw new ApiException(HttpStatus.BAD_REQUEST, "product category cannot be updated");
+			}
+		} catch (DataIntegrityViolationException e) {
+			throw new ApiException(HttpStatus.NOT_FOUND, "category not found");
+		}
 	}
 }

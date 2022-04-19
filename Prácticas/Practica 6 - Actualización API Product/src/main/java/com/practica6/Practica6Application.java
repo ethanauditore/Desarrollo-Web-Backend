@@ -1,13 +1,13 @@
-package com.product;
+package com.practica6;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProductApplication {
+public class Practica6Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProductApplication.class, args);
+		SpringApplication.run(Practica6Application.class, args);
 	}
 
 }

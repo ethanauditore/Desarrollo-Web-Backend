@@ -1,4 +1,6 @@
-package com.product.api.controller;
+package com.practica6.api.controller;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.product.api.dto.ApiResponse;
-import com.product.api.entity.Product;
-import com.product.api.service.SvcProduct;
-import com.product.exception.ApiException;
+import com.practica6.api.dto.ApiResponse;
+import com.practica6.api.dto.DtoProductList;
+import com.practica6.api.entity.Category;
+import com.practica6.api.entity.Product;
+import com.practica6.api.service.SvcProduct;
+import com.practica6.exception.ApiException;
 
 @RestController
 @RequestMapping("/product")
@@ -26,7 +30,12 @@ public class CtrlProduct {
 
 	@Autowired
 	SvcProduct svc;
-	
+
+	@GetMapping("/category/{id}")
+	public ResponseEntity<List<DtoProductList>> getProducts(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(svc.getProductById(id), HttpStatus.OK);
+	}
+
 	@GetMapping("/{gtin}")
 	public ResponseEntity<Product> getProduct(@PathVariable("gtin") String gtin){
 		return new ResponseEntity<>(svc.getProduct(gtin), HttpStatus.OK);
@@ -49,5 +58,10 @@ public class CtrlProduct {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse> deleteProduct(@PathVariable("id") Integer id){
 		return new ResponseEntity<>(svc.deleteProduct(id), HttpStatus.OK);
+	}
+
+	@PutMapping("/{id}/category")
+	public ResponseEntity<ApiResponse> updateProductCategory(@PathVariable("id") Integer id, @RequestBody Category in) {
+		return new ResponseEntity<>(svc.updateProductCategory(in, id), HttpStatus.OK);
 	}
 }
