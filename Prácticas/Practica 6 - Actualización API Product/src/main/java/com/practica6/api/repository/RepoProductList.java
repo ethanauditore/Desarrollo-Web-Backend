@@ -14,5 +14,4 @@ public interface RepoProductList extends JpaRepository<DtoProductList, Integer> 
 
 	@Query(value = "SELECT * FROM product WHERE product_id = :product_id AND status = :status", nativeQuery = true)
     List<DtoProductList> findByStatusAndId(@Param("status") Integer status, @Param("product_id") Integer product_id);
-	// Category findByCategoryId(@Param("category_id") Integer category_id);
 }
